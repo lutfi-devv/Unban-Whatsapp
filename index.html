@@ -1,178 +1,299 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Unban WhatsApp - LutfiDev</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: Arial, sans-serif;
-    }
-    body {
-      background-color: #000;
-      color: red;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 20px;
-    }
-    .hidden {
-      display: none;
-    }
-    h1 {
-      font-size: 2.2rem;
-      margin-bottom: 30px;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 1s ease, transform 1s ease;
-    }
-    .show {
-      opacity: 1 !important;
-      transform: translateY(0) !important;
-    }
-    .btn {
-      background-color: transparent;
-      color: red;
-      border: 2px solid red;
-      padding: 12px 24px;
-      margin: 10px;
-      font-size: 1.1rem;
-      cursor: pointer;
-      border-radius: 5px;
-      transition: background-color 0.3s, color 0.3s;
-    }
-    .btn:hover {
-      background-color: red;
-      color: black;
-    }
-    input {
-      margin: 20px 0;
-      padding: 12px;
-      width: 85%;
-      max-width: 300px;
-      background: #111;
-      color: red;
-      border: 1px solid red;
-      border-radius: 4px;
-      font-size: 1rem;
-    }
-    footer {
-      margin-top: 40px;
-      font-size: 0.9rem;
-    }
-    footer a {
-      color: red;
-      text-decoration: none;
-    }
-    
-    /* Animasi LutfiDev */
-    .lutfi-dev-animation {
-      font-size: 3rem;
-      font-weight: bold;
-      color: red;
-      margin-bottom: 30px;
-      animation: pulse 2s infinite;
-      opacity: 0;
-      transform: scale(0.8);
-    }
-    
-    @keyframes pulse {
-      0% {
-        transform: scale(0.8);
-        opacity: 0.5;
-      }
-      50% {
-        transform: scale(1.2);
-        opacity: 1;
-      }
-      100% {
-        transform: scale(0.8);
-        opacity: 0.5;
-      }
-    }
-    
-    .show-animation {
-      animation: fadeInScale 1.5s forwards;
-    }
-    
-    @keyframes fadeInScale {
-      from {
-        opacity: 0;
-        transform: scale(0.8);
-      }
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lutfidev Unban Whatsapp</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #000;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        /* Animasi Pembuka */
+        #splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            transition: opacity 1s ease-out;
+        }
+
+        .splash-logo {
+            font-size: 4rem;
+            font-weight: bold;
+            color: limegreen;
+            text-shadow: 0 0 10px limegreen;
+            animation: glow 1.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px limegreen;
+            }
+            to {
+                text-shadow: 0 0 20px limegreen, 0 0 30px limegreen;
+            }
+        }
+
+        /* Konten Utama */
+        #main-content {
+            display: none;
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: limegreen;
+            text-shadow: 0 0 5px limegreen;
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .btn {
+            padding: 1rem;
+            border-radius: 1.5rem;
+            border: 3px solid limegreen;
+            background-color: #333;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background-color: limegreen;
+            color: #000;
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px limegreen;
+        }
+
+        .category {
+            margin-top: 1.5rem;
+        }
+
+        .category-title {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: limegreen;
+            text-shadow: 0 0 3px limegreen;
+            font-weight: bold;
+        }
+
+        .option-btn {
+            width: 100%;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            border-radius: 1.5rem;
+            border: 3px solid limegreen;
+            background-color: #333;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+        }
+
+        .option-btn:hover {
+            background-color: limegreen;
+            color: #000;
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px limegreen;
+        }
+
+        /* Input Nomor */
+        .input-section {
+            margin: 1.5rem 0;
+            width: 100%;
+        }
+
+        .input-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: limegreen;
+        }
+
+        .input-number {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            border: 2px solid limegreen;
+            background-color: #333;
+            color: white;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .input-number:focus {
+            box-shadow: 0 0 10px limegreen;
+        }
+
+        footer {
+            margin-top: 2rem;
+            padding: 1rem;
+            width: 100%;
+            text-align: center;
+            color: gray;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+            .splash-logo {
+                font-size: 3rem;
+            }
+            .btn, .option-btn {
+                padding: 0.75rem;
+                font-size: 0.9rem;
+            }
+            .input-number {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- Animasi Pembuka -->
+    <div id="splash-screen">
+        <div class="splash-logo">LutfiDev</div>
+    </div>
 
-  <!-- Halaman Intro -->
-  <div id="intro">
-    <h1 id="welcome">UNBAN WHATSAPP V1</h1>
-    <button class="btn" onclick="openInfoUpdate()">Info Update</button>
-    <button class="btn" onclick="showMainPage()">Lanjut ke Halaman Utama</button>
-  </div>
+    <!-- Konten Utama -->
+    <div id="main-content">
+        <h1>Lutfidev Unban Whatsapp V1</h1>
 
-  <!-- Halaman Utama -->
-  <div id="main" class="hidden">
-    <h2>Masukkan Nomor Whatsapp</h2>
-    <input type="text" id="phoneNumber" placeholder="Contoh: 62889887xxxx" />
-    <br />
-    <button class="btn" onclick="sendUnban(1)">UNBAN BY LUTFIDEV</button>
-    <button class="btn" onclick="sendUnban(2)">UNBAN BY LUTFIDEV</button>
-  </div>
+        <div class="button-container" id="initial-buttons">
+            <a href="https://whatsapp.com/channel/0029VbBx5iF545uyHuvE4Q2W" target="_blank" class="btn" onclick="hideButtons()">Info Update</a>
+            <button class="btn" onclick="showOptionsAndHideButtons()">Masuk</button>
+        </div>
 
-  <footer>
-    Created by <a href="https://github.com/LutfiDev-ui" target="_blank">LutfiDev</a>
-  </footer>
+        <div id="options-section" style="display: none;">
 
-  <script>
-    window.onload = () => {
-      setTimeout(() => {
-        document.getElementById('welcome').classList.add('show');
-        document.getElementById('lutfiDev').classList.add('show-animation');
-      }, 300);
-    };
+            <!-- Input Nomor -->
+            <div class="input-section">
+                <label for="phone-number" class="input-label">Masukkan Nomor Anda:</label>
+                <input type="text" id="phone-number" class="input-number" placeholder="+628XXXXXXXXX" required>
+            </div>
 
-    function showMainPage() {
-      document.getElementById('intro').classList.add('hidden');
-      document.getElementById('main').classList.remove('hidden');
-    }
-    
-    function openInfoUpdate() {
-      window.open('https://whatsapp.com/channel/0029VbBx5iF545uyHuvE4Q2W', '_blank');
-    }
+            <div class="category">
+                <div class="category-title">UNBANNED REQUEST</div>
+                <button class="option-btn" onclick="sendUnban1()">Unban By LutfiDev</button>
+                <button class="option-btn" onclick="sendUnban2()">Unban By LutfiDev</button>
+            </div>
 
-    function sendUnban(type) {
-      const number = document.getElementById('phoneNumber').value.trim();
-      if (!number) {
-        alert('❗ Masukkan nomor WhatsApp (format internasional, contoh: 6281234567890)');
-        return;
-      }
+            <div class="category">
+                <div class="category-title">RESET OTP REQUEST</div>
+                <button class="option-btn" onclick="sendResetOTP()">Reset OTP</button>
+            </div>
+        </div>
+    </div>
 
-      let subject = 'Permohonan Unban Akun WhatsApp';
-      let body = '';
+    <footer>
+        Created by Lutfidev
+    </footer>
 
-      if (type === 1) {
-        body = `Mohon aktifkan kembali nomor saya karena saya tidak melanggar aturan WhatsApp, tiba-tiba nomor saya di banned, mohon aktifkan kembali nomor ini: ${number}\n\nkarena saya tidak melakukan kesalahan apapun, tiba-tiba nomor saya di ban ketika saya melihat status, maka saya meminta kepada pihak whatsapp yang terhormat, tolong aktifkan kembali nomor saya, terima kasih.`;
-      } else if (type === 2) {
-        body = `Hallo team WhatsApp, akun saya ${number} di blokir. Saya meminta anda untuk mengembalikan akun WhatsApp saya, saya mohon kembalikan. Karena itu akun pribadi WhatsApp saya. Sekali lagi tolong unbanned akun saya ${number}`;
-      }
+    <script>
+        // Animasi splash screen
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                const splash = document.getElementById('splash-screen');
+                splash.style.opacity = '0';
+                setTimeout(() => {
+                    splash.style.display = 'none';
+                    document.getElementById('main-content').style.display = 'block';
+                }, 1000);
+            }, 2000);
+        });
 
-      // ✅ Buka aplikasi email bawaan (termasuk Gmail di HP)
-      const mailto = `mailto:support@whatsapp.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-      window.location.href = mailto;
-    }
-  </script>
+        // Fungsi untuk menyembunyikan tombol "Info Update" dan "Masuk"
+        function hideButtons() {
+            document.getElementById('initial-buttons').style.display = 'none';
+        }
 
+        function showOptionsAndHideButtons() {
+            document.getElementById('initial-buttons').style.display = 'none';
+            document.getElementById('options-section').style.display = 'block';
+        }
+
+        // Ambil nilai nomor dari input
+        function getPhoneNumber() {
+            let number = document.getElementById('phone-number').value.trim();
+            if (!number) {
+                alert('Silakan masukkan nomor WhatsApp Anda!');
+                return null;
+            }
+            return number;
+        }
+
+        // Fungsi kirim email - Unban 1
+        function sendUnban1() {
+            const nomor = getPhoneNumber();
+            if (!nomor) return;
+
+            const subject = 'Request Unban WhatsApp';
+            const body = `Hallo team WhatsApp,
+akun saya ${nomor} di blokir. Saya meminta anda untuk mengembalikan akun WhatsApp saya, saya mohon kembalikan. Karena itu akun pribadi WhatsApp saya. Sekali lagi tolong unbanned akun saya ${nomor}`;
+            window.location.href = `mailto:support@support.whatsapp.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        }
+
+        // Fungsi kirim email - Unban 2
+        function sendUnban2() {
+            const nomor = getPhoneNumber();
+            if (!nomor) return;
+
+            const subject = 'Request Aktivasi Ulang WhatsApp';
+            const body = `Mohon aktifkan kembali nomor saya karena saya tidak melanggar aturan WhatsApp, tiba-tiba nomor saya di banned, mohon aktifkan kembali nomor ini: ${nomor}
+
+karena saya tidak melakukan kesalahan apapun, tiba-tiba nomor saya di ban ketika saya melihat status, maka saya meminta kepada pihak whatsapp yang terhormat, tolong aktifkan kembali nomor saya, terima kasih.`;
+            window.location.href = `mailto:support@support.whatsapp.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        }
+
+        // Fungsi kirim email - Reset OTP
+        function sendResetOTP() {
+            const nomor = getPhoneNumber();
+            if (!nomor) return;
+
+            const subject = 'Request Reset OTP WhatsApp';
+            const body = `Nomor saya ${nomor}, seseorang meminta kode secara tidak sengaja. Nomor saya yang saya gunakan untuk bekerja. Saya memiliki perusahaan ventura dan saya memerlukan akun ini, harap hapus Waktu dari nomor saya. Setel ulang kode SMS saya. Terimakasih`;
+            window.location.href = `mailto:support@support.whatsapp.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        }
+    </script>
 </body>
 </html>
+
