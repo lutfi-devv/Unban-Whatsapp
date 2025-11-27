@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Unban WhatsApp - LutfiDev</title>
+  <style>
+    body {
+      background-color: #000;
+      color: #ff0000;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    h1 {
+      color: #ff0000;
+      margin-bottom: 30px;
+    }
+
+    input {
+      width: 90%;
+      max-width: 300px;
+      padding: 12px;
+      margin-bottom: 25px;
+      border: 5px solid #ff0000;
+      border-radius: 8px;
+      background-color: #ffff;
+      color: #ff0000;
+      font-size: 16px;
+      outline: none;
+    }
+
+    input::placeholder {
+      color: #ff0000;
+    }
+
+    .btn {
+      background-color: #000;
+      color: #ff0000;
+      border: 2px solid #ff0000;
+      padding: 14px 24px;
+      margin: 8px 0;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+      width: 90%;
+      max-width: 300px;
+    }
+
+    .btn:hover {
+      background-color: #333;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .button-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+
+    /* Welcome Screen Styles */
+    .welcome-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #000;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      transition: opacity 0.5s ease;
+    }
+
+    .welcome-screen.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .logo-animation {
+      font-size: 4rem;
+      font-weight: bold;
+      color: #ff0000;
+      margin-bottom: 50px;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(0.8);
+        opacity: 0.5;
+      }
+      50% {
+        transform: scale(1.2);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(0.8);
+        opacity: 0.5;
+      }
+    }
+
+    .welcome-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      opacity: 0;
+      animation: fadeIn 1s forwards;
+      animation-delay: 2s;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .welcome-btn {
+      background-color: #ff0000;
+      color: #000;
+      border: none;
+      padding: 15px 30px;
+      border-radius: 8px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s;
+      width: 250px;
+    }
+
+    .welcome-btn:hover {
+      background-color: #cc0000;
+      transform: scale(1.05);
+    }
+
+    .welcome-btn.secondary {
+      background-color: transparent;
+      color: #ff0000;
+      border: 2px solid #ff0000;
+    }
+
+    .welcome-btn.secondary:hover {
+      background-color: #ff0000;
+      color: #000;
+    }
+
+    /* Main content initially hidden */
+    .main-content {
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .main-content.visible {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <!-- Welcome Screen -->
+  <div class="welcome-screen" id="welcomeScreen">
+    <div class="logo-animation">LutfiDev</div>
+    <div class="welcome-buttons">
+      <button class="welcome-btn" onclick="openChannel()">Masuk Saluran</button>
+      <button class="welcome-btn secondary" onclick="showMainContent()">Lanjut</button>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content" id="mainContent">
+    <h1>WhatsApp Unban Tool</h1>
+    <p style="color: #ff0000; margin-bottom: 10px;">Masukkan nomor WhatsApp yang terkena banned:</p>
+    
+    <input type="tel" id="phoneInput" placeholder="Contoh: 6281234567890" />
+
+    <div class="button-container">
+      <button class="btn" onclick="sendUnbanRequest()">Unban by LutfiDev</button>
+      <button class="btn" onclick="sendUnbanRequest()">Unban by LutfiDev</button>
+      <button class="btn" onclick="sendUnbanRequest()">Unban by LutfiDev</button>
+    </div>
+  </div>
+
+  <script>
+    // Function to open WhatsApp channel
+    function openChannel() {
+      window.open('https://whatsapp.com/channel/0029VbBx5iF545uyHuvE4Q2W', '_blank');
+    }
+
+    // Function to show main content
+    function showMainContent() {
+      document.getElementById('welcomeScreen').classList.add('hidden');
+      document.getElementById('mainContent').classList.add('visible');
+    }
+
+    // Function to send unban request
+    function sendUnbanRequest() {
+      const phone = document.getElementById("phoneInput").value.trim();
+      
+      if (!phone) {
+        alert("⚠️ Harap masukkan nomor WhatsApp terlebih dahulu!");
+        return;
+      }
+
+      // Validasi nomor (minimal 10 digit, hanya angka)
+      if (!/^\d{10,15}$/.test(phone)) {
+        alert("⚠️ Nomor tidak valid! Harap masukkan nomor hanya angka (tanpa + atau spasi), contoh: 6281234567890");
+        return;
+      }
+
+      const subject = encodeURIComponent("Nomor saya diblokir tanpa Alasan");
+      const body = encodeURIComponent(
+        `Mohon aktifkan kembali nomor saya karena saya tidak melanggar aturan WhatsApp, tiba-tiba nomor saya di banned, mohon aktifkan kembali nomor ini: ${phone}
+        
+         karena saya tidak melakukan kesalahan apapun, tiba-tiba nomor saya di ban ketika saya melihat status, maka saya meminta kepada pihak whatsapp yang terhormat, tolong aktifkan kembali nomor saya, terima kasih. 
+      );
+
+      // Buka email ke support@whatsapp.com
+      const mailtoLink = `mailto:support@whatsapp.com?subject=${subject}&body=${body}`;
+      
+      window.location.href = mailtoLink;
+    }
+  </script>
+</body>
+</html>
