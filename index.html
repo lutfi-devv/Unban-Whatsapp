@@ -5,102 +5,83 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Unban WhatsApp - LutfiDev</title>
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
     body {
       background-color: #000;
-      color: #ff0000;
-      font-family: Arial, sans-serif;
+      color: red;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
-      align-items: center;
       justify-content: center;
-      height: 100vh;
-      margin: 0;
-      padding: 20px;
+      align-items: center;
       text-align: center;
-      overflow: hidden;
+      padding: 20px;
     }
-
+    .hidden {
+      display: none;
+    }
     h1 {
-      color: #ff0000;
+      font-size: 2.2rem;
       margin-bottom: 30px;
-    }
-
-    input {
-      width: 90%;
-      max-width: 300px;
-      padding: 12px;
-      margin-bottom: 25px;
-      border: 5px solid #ff0000;
-      border-radius: 8px;
-      background-color: #ffff;
-      color: #ff0000;
-      font-size: 16px;
-      outline: none;
-    }
-
-    input::placeholder {
-      color: #ff0000;
-    }
-
-    .btn {
-      background-color: #000;
-      color: #ff0000;
-      border: 2px solid #ff0000;
-      padding: 14px 24px;
-      margin: 8px 0;
-      border-radius: 8px;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background 0.3s;
-      width: 90%;
-      max-width: 300px;
-    }
-
-    .btn:hover {
-      background-color: #333;
-    }
-
-    .btn:active {
-      transform: scale(0.98);
-    }
-
-    .button-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 100%;
-    }
-
-    /* Welcome Screen Styles */
-    .welcome-screen {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: #000;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-      transition: opacity 0.5s ease;
-    }
-
-    .welcome-screen.hidden {
       opacity: 0;
-      pointer-events: none;
+      transform: translateY(20px);
+      transition: opacity 1s ease, transform 1s ease;
     }
-
-    .logo-animation {
-      font-size: 4rem;
+    .show {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+    }
+    .btn {
+      background-color: transparent;
+      color: red;
+      border: 2px solid red;
+      padding: 12px 24px;
+      margin: 10px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    .btn:hover {
+      background-color: red;
+      color: black;
+    }
+    input {
+      margin: 20px 0;
+      padding: 12px;
+      width: 85%;
+      max-width: 300px;
+      background: #111;
+      color: red;
+      border: 1px solid red;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+    footer {
+      margin-top: 40px;
+      font-size: 0.9rem;
+    }
+    footer a {
+      color: red;
+      text-decoration: none;
+    }
+    
+    /* Animasi LutfiDev */
+    .lutfi-dev-animation {
+      font-size: 3rem;
       font-weight: bold;
-      color: #ff0000;
-      margin-bottom: 50px;
+      color: red;
+      margin-bottom: 30px;
       animation: pulse 2s infinite;
+      opacity: 0;
+      transform: scale(0.8);
     }
-
+    
     @keyframes pulse {
       0% {
         transform: scale(0.8);
@@ -115,130 +96,83 @@
         opacity: 0.5;
       }
     }
-
-    .welcome-buttons {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      opacity: 0;
-      animation: fadeIn 1s forwards;
-      animation-delay: 2s;
+    
+    .show-animation {
+      animation: fadeInScale 1.5s forwards;
     }
-
-    @keyframes fadeIn {
+    
+    @keyframes fadeInScale {
       from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: scale(0.8);
       }
       to {
         opacity: 1;
-        transform: translateY(0);
+        transform: scale(1);
       }
-    }
-
-    .welcome-btn {
-      background-color: #ff0000;
-      color: #000;
-      border: none;
-      padding: 15px 30px;
-      border-radius: 8px;
-      font-size: 18px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: all 0.3s;
-      width: 250px;
-    }
-
-    .welcome-btn:hover {
-      background-color: #cc0000;
-      transform: scale(1.05);
-    }
-
-    .welcome-btn.secondary {
-      background-color: transparent;
-      color: #ff0000;
-      border: 2px solid #ff0000;
-    }
-
-    .welcome-btn.secondary:hover {
-      background-color: #ff0000;
-      color: #000;
-    }
-
-    /* Main content initially hidden */
-    .main-content {
-      opacity: 0;
-      transition: opacity 0.5s ease;
-    }
-
-    .main-content.visible {
-      opacity: 1;
     }
   </style>
 </head>
 <body>
-  <!-- Welcome Screen -->
-  <div class="welcome-screen" id="welcomeScreen">
-    <div class="logo-animation">LutfiDev</div>
-    <div class="welcome-buttons">
-      <button class="welcome-btn" onclick="openChannel()">Masuk Saluran</button>
-      <button class="welcome-btn secondary" onclick="showMainContent()">Lanjut</button>
-    </div>
+
+  <!-- Halaman Intro -->
+  <div id="intro">
+    <h1 id="welcome">UNBAN WHATSAPP V1</h1>
+    <button class="btn" onclick="openInfoUpdate()">Info Update</button>
+    <button class="btn" onclick="showMainPage()">Lanjut ke Halaman Utama</button>
   </div>
 
-  <!-- Main Content -->
-  <div class="main-content" id="mainContent">
-    <h1>WhatsApp Unban Tool</h1>
-    <p style="color: #ff0000; margin-bottom: 10px;">Masukkan nomor WhatsApp yang terkena banned:</p>
-    
-    <input type="tel" id="phoneInput" placeholder="Contoh: 6281234567890" />
-
-    <div class="button-container">
-      <button class="btn" onclick="sendUnbanRequest()">Unban by LutfiDev</button>
-      <button class="btn" onclick="sendUnbanRequest()">Unban by LutfiDev</button>
-      <button class="btn" onclick="sendUnbanRequest()">Unban by LutfiDev</button>
-    </div>
+  <!-- Halaman Utama -->
+  <div id="main" class="hidden">
+    <h2>Masukkan Nomor Whatsapp</h2>
+    <input type="text" id="phoneNumber" placeholder="Contoh: 62889887xxxx" />
+    <br />
+    <button class="btn" onclick="sendUnban(1)">UNBAN BY LUTFIDEV</button>
+    <button class="btn" onclick="sendUnban(2)">UNBAN BY LUTFIDEV</button>
   </div>
+
+  <footer>
+    Created by <a href="https://github.com/LutfiDev-ui" target="_blank">LutfiDev</a>
+  </footer>
 
   <script>
-    // Function to open WhatsApp channel
-    function openChannel() {
+    window.onload = () => {
+      setTimeout(() => {
+        document.getElementById('welcome').classList.add('show');
+        document.getElementById('lutfiDev').classList.add('show-animation');
+      }, 300);
+    };
+
+    function showMainPage() {
+      document.getElementById('intro').classList.add('hidden');
+      document.getElementById('main').classList.remove('hidden');
+    }
+    
+    function openInfoUpdate() {
       window.open('https://whatsapp.com/channel/0029VbBx5iF545uyHuvE4Q2W', '_blank');
     }
 
-    // Function to show main content
-    function showMainContent() {
-      document.getElementById('welcomeScreen').classList.add('hidden');
-      document.getElementById('mainContent').classList.add('visible');
-    }
-
-    // Function to send unban request
-    function sendUnbanRequest() {
-      const phone = document.getElementById("phoneInput").value.trim();
-      
-      if (!phone) {
-        alert("⚠️ Harap masukkan nomor WhatsApp terlebih dahulu!");
+    function sendUnban(type) {
+      const number = document.getElementById('phoneNumber').value.trim();
+      if (!number) {
+        alert('❗ Masukkan nomor WhatsApp (format internasional, contoh: 6281234567890)');
         return;
       }
 
-      // Validasi nomor (minimal 10 digit, hanya angka)
-      if (!/^\d{10,15}$/.test(phone)) {
-        alert("⚠️ Nomor tidak valid! Harap masukkan nomor hanya angka (tanpa + atau spasi), contoh: 6281234567890");
-        return;
+      let subject = 'Permohonan Unban Akun WhatsApp';
+      let body = '';
+
+      if (type === 1) {
+        body = `Mohon aktifkan kembali nomor saya karena saya tidak melanggar aturan WhatsApp, tiba-tiba nomor saya di banned, mohon aktifkan kembali nomor ini: ${number}\n\nkarena saya tidak melakukan kesalahan apapun, tiba-tiba nomor saya di ban ketika saya melihat status, maka saya meminta kepada pihak whatsapp yang terhormat, tolong aktifkan kembali nomor saya, terima kasih.`;
+      } else if (type === 2) {
+        body = `Hallo team WhatsApp, akun saya ${number} di blokir. Saya meminta anda untuk mengembalikan akun WhatsApp saya, saya mohon kembalikan. Karena itu akun pribadi WhatsApp saya. Sekali lagi tolong unbanned akun saya ${number}`;
       }
 
-      const subject = encodeURIComponent("Nomor saya diblokir tanpa Alasan");
-      const body = encodeURIComponent(
-        `Mohon aktifkan kembali nomor saya karena saya tidak melanggar aturan WhatsApp, tiba-tiba nomor saya di banned, mohon aktifkan kembali nomor ini: ${phone}
-        
-         karena saya tidak melakukan kesalahan apapun, tiba-tiba nomor saya di ban ketika saya melihat status, maka saya meminta kepada pihak whatsapp yang terhormat, tolong aktifkan kembali nomor saya, terima kasih. 
-      );
-
-      // Buka email ke support@whatsapp.com
-      const mailtoLink = `mailto:support@whatsapp.com?subject=${subject}&body=${body}`;
-      
-      window.location.href = mailtoLink;
+      // ✅ Buka aplikasi email bawaan (termasuk Gmail di HP)
+      const mailto = `mailto:support@whatsapp.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      window.location.href = mailto;
     }
   </script>
+
 </body>
 </html>
